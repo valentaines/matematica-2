@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Document</title>
+</head>
+<body>
+<header>
+    coloque aqui a navegação do site
+
+</header>
+<main>
+    <!-- Seção do Carrossel -->
+    <section class="carrossel">
+        <div class="carrossel-container">
+            <!-- Slide 1 -->
+            <div class="carrossel-slide ativo">
+                <img src="https://picsum.photos/1200/400&quot; class="carrossel-imagem" alt="Produto 1">
+            </div>
+           
+            <!-- Slide 2 -->
+            <div class="carrossel-slide">
+                <img src="https://picsum.photos/1200/401&quot; class="carrossel-imagem" alt="Produto 2">
+            </div>
+           
+            <!-- Slide 3 -->
+            <div class="carrossel-slide">
+                <img src="https://picsum.photos/1200/402&quot; class="carrossel-imagem" alt="Produto 3">
+            </div>
+        </div>
+
+        <!-- Indicadores -->
+        <div class="carrossel-indicadores">
+            <div class="indicador ativo"></div>
+            <div class="indicador"></div>
+            <div class="indicador"></div>
+        </div>
+    </section>
+
+    <!-- Seção de Produtos -->
+    <section class="produtos-container">
+        <!-- Card 1 -->
+        <article class="produto-card">
+            <img src="https://picsum.photos/300/200&quot; class="produto-imagem" alt="Produto">
+            <div class="produto-info">
+                <h3 class="produto-titulo">jaqueta marrom</h3>
+                <p class="produto-descricao"></p> jaqueta peluciada 
+                <p class="produto-preco">R$ 299,90</p>
+                <a href="#" class="botao-comprar">Comprar</a>
+            </div>
+        </article>
+
+        <!-- Card 2 -->
+        <article class="produto-card">
+            <img src="https://picsum.photos/301/200&quot; class="produto-imagem" alt="Produto">
+            <div class="produto-info">
+                <h3 class="produto-titulo">moletom</h3>
+                <p class="produto-descricao">tecido 3 cabos cor branca.</p>
+                <p class="produto-preco">R$ 199,90</p>
+                <a href="#" class="botao-comprar">Comprar</a>
+            </div>
+        </article>
+
+        <!-- Card 3 -->
+        <article class="produto-card">
+            <img src="https://picsum.photos/302/200&quot; class="produto-imagem" alt="Produto">
+            <div class="produto-info">
+                <h3 class="produto-titulo">bolsa</h3>
+                <p class="produto-descricao"> tecido em couro e de cor rosa.</p>
+                <p class="produto-preco">R$ 399,90</p>
+                <a href="#" class="botao-comprar">Comprar</a>
+            </div>
+        </article>
+
+        <!-- Card 4 -->
+        <article class="produto-card">
+            <img src="https://picsum.photos/303/200&quot; class="produto-imagem" alt="Produto">
+            <div class="produto-info">
+                <h3 class="produto-titulo">Camiseta</h3>
+                <p class="produto-descricao">Camiseta na cor azul 100% algodão</p>
+                <p class="produto-preco">R$ 70,00</p>
+                <a href="#" class="botao-comprar">Comprar</a>
+            </div>
+        </article>
+    </section>
+</main>
+<script>
+    // Controle do Carrossel
+    const carrosselContainer = document.querySelector('.carrossel-container');
+    const slides = document.querySelectorAll('.carrossel-slide');
+    const indicadores = document.querySelectorAll('.indicador');
+    let currentIndex = 0;
+    let autoPlay = true;
+    let intervalo = 5000; // 5 segundos
+
+    // Função para mudar slide
+    function mudarSlide(novoIndex) {
+        if (novoIndex < 0) novoIndex = slides.length - 1;
+        if (novoIndex >= slides.length) novoIndex = 0;
+
+        carrosselContainer.style.transform = `translateX(-${novoIndex * 100}%)`;
+        currentIndex = novoIndex;
+       
+        // Atualizar indicadores
+        indicadores.forEach(ind => ind.classList.remove('ativo'));
+        indicadores[currentIndex].classList.add('ativo');
+    }
+
+    // Auto-play
+    let intervaloID = setInterval(() => {
+        if(autoPlay) mudarSlide(currentIndex + 1);
+    }, intervalo);
+
+    // Eventos dos indicadores
+    indicadores.forEach((indicador, index) => {
+        indicador.addEventListener('click', () => {
+            mudarSlide(index);
+            // Resetar auto-play após interação
+            clearInterval(intervaloID);
+            intervaloID = setInterval(() => {
+                if(autoPlay) mudarSlide(currentIndex + 1);
+            }, intervalo);
+        });
+    });
+
+    // Opcional: Navegação por teclado
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'ArrowLeft') mudarSlide(currentIndex - 1);
+        if (e.key === 'ArrowRight') mudarSlide(currentIndex + 1);
+    });
+</script>
+<footer>
+
+    coloque aqui os dados de endereços do seu cliente
+   
+</footer>
+
+   
+</body>
+</html>
